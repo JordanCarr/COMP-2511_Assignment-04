@@ -4,8 +4,7 @@
     <title>Web Development Game</title>
     <meta charset="utf-8" lang="en">
     <link rel="stylesheet" media="screen and (min-width: 1600px)" href="style/large.css">
-    <link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1599px)" href="style/medium.css">
-    <link rel="stylesheet" media="screen and (max-width: 799px)" href="style/small.css">
+    <link rel="stylesheet" media="screen and (max-width: 1599px)" href="style/medium.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/functionality.js"></script>
 </head>
@@ -20,8 +19,8 @@
     </div>
     <div id="NewGame">
         <form class="newGameForm" action="" method="POST">
-            <input id="playerOneName" type="text" name="player1" value="Player 1:"/><br>
-            <input id="playerTwoName" type="text" name="player2" value="Player 2:"/><br>
+            <input id="playerOneName" type="text" name="player1" value="Player 1:" title="Player 1"/><br>
+            <input id="playerTwoName" type="text" name="player2" value="Player 2:" title="Player 2"/><br>
             <!--suppress QuirksModeInspectionTool -->
             <input type="submit" value="Start" id="submitButton"/>
         </form>
@@ -36,8 +35,8 @@
     </div>
     <div id="ValueToReach">
         <div class="valueBoard">
-            <p id="PlayerMove"></p>
-            <p id="Move"></p>
+            <p id="PlayerMove">Player X, value to beat: </p>
+            <p id="Move">0</p>
         </div>
     </div>
     <div id="EndGame">
@@ -47,17 +46,18 @@
     </div>
 </div>
 <div class="centerArea">
+    <!--suppress QuirksModeInspectionTool -->
     <div class="cardArea">
-        <div class="card" id="Card0" onclick="selectCard(this)"></div>
-        <div class="card" id="Card1" onclick="selectCard(this)"></div>
-        <div class="card" id="Card2" onclick="selectCard(this)"></div>
-        <div class="card" id="Card3" onclick="selectCard(this)"></div>
-        <div class="card" id="Card4" onclick="selectCard(this)"></div>
-        <div class="card" id="Card5" onclick="selectCard(this)"></div>
-        <div class="card" id="Card6" onclick="selectCard(this)"></div>
-        <div class="card" id="Card7" onclick="selectCard(this)"></div>
-        <div class="card" id="Card8" onclick="selectCard(this)"></div>
-        <div class="card" id="Card9" onclick="selectCard(this)"></div>
+        <div class="card" id="Card0"></div>
+        <div class="card" id="Card1"></div>
+        <div class="card" id="Card2"></div>
+        <div class="card" id="Card3"></div>
+        <div class="card" id="Card4"></div>
+        <div class="card" id="Card5"></div>
+        <div class="card" id="Card6"></div>
+        <div class="card" id="Card7"></div>
+        <div class="card" id="Card8"></div>
+        <div class="card" id="Card9"></div>
     </div>
 </div>
 <div class="bottomArea">

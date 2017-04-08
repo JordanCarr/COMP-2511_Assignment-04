@@ -42,6 +42,8 @@ Colour Codes:
 body {
     height: 100vh;
     margin: 0;
+    min-height: 400px;
+    min-width: 650px;
     width: 100vw;
 }
 
@@ -63,8 +65,8 @@ noscript {
 
 noscript p {
     align-items: center;
-    background-color: rgba(33, 33, 33, 0.98); /*Chrome and non CSS 4 browser compatibility*/
-    background-color: #212121FA; /*CSS 4 acceptable colour with opacity*/
+    background-color: hsla(0, 0%, 13%, 0.98); /*Chrome and non CSS 4 browser compatibility*/
+    background-color: #212121FA; /*CSS 4 hex colour with opacity*/
 
     color: #FAFAFA;
     display: flex;
@@ -193,14 +195,14 @@ noscript a {
     padding: 0;
 }
 
-.valueBoard #PlayerMove:after {
-    content: "Player ??? Moves to Beat:";
-    width: 50%;
+.valueBoard #PlayerMove {
+    text-align: center;
+    width: 70%;
 }
 
-.valueBoard #Move:after {
-    content: "16";
-    width: 40%;
+.valueBoard #Move {
+    text-align: center;
+    width: 30%;
 }
 
 #EndGame {
@@ -241,6 +243,7 @@ noscript a {
     height: 100%;
     justify-content: space-around;
     overflow: auto;
+    visibility: hidden;
 }
 
 .card {
@@ -254,6 +257,7 @@ noscript a {
 
 .card:hover {
     border: 0.1em solid #eeeeee;
+    padding: 0;
     transform: scale(1.1);
     -moz-transform: scale(1.1);
     -ms-transform: scale(1.1);
