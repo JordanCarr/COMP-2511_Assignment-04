@@ -6,7 +6,7 @@
     <link rel="stylesheet" media="screen and (min-width: 1600px)" href="style/large.css">
     <link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1599px)" href="style/medium.css">
     <link rel="stylesheet" media="screen and (max-width: 799px)" href="style/small.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/functionality.js"></script>
 </head>
 
@@ -20,26 +20,18 @@
     </div>
     <div id="NewGame">
         <form class="newGameForm" action="" method="POST">
-            <input id="playerOneName" type="text" name="player1" placeholder="Player 1:"><br>
-            <input id="playerTwoName" type="text" name="player2" placeholder="Player 2:"><br>
+            <input id="playerOneName" type="text" name="player1" value="Player 1:"/><br>
+            <input id="playerTwoName" type="text" name="player2" value="Player 2:"/><br>
             <!--suppress QuirksModeInspectionTool -->
-            <input type="submit" value="Submit" id="Submit"/>
+            <input type="submit" value="Start" id="submitButton"/>
         </form>
     </div>
     <div id="Score">
         <div class="scoreBoard">
-            <div id="PlayerOneNameDisplay">
-                Player One Score:
-            </div>
-            <div id="PlayerOneScoreDisplay">
-                42
-            </div>
-            <div id="PlayerTwoNameDisplay">
-                Player Two Score:
-            </div>
-            <div id="PlayerTwoScoreDisplay">
-                64
-            </div>
+            <div id="PlayerOneNameDisplay">Player One Score:</div>
+            <div id="PlayerOneScoreDisplay">0</div>
+            <div id="PlayerTwoNameDisplay">Player Two Score:</div>
+            <div id="PlayerTwoScoreDisplay">0</div>
         </div>
     </div>
     <div id="ValueToReach">
@@ -49,7 +41,7 @@
         </div>
     </div>
     <div id="EndGame">
-        <form class="endGameForm" action="index.html" method="post">
+        <form class="endGameForm" method="post">
             <input type="submit" value="End Game">
         </form>
     </div>

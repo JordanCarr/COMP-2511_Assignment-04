@@ -1,60 +1,58 @@
 /**
  * Created by Jordan Carr on 2017-03-28.
  */
+
 $(document).ready(function () {
 // This is only a click event where you can't get the values from form elements
-    $("#Submit").click(function () {
+    $("#submitButton").click(function () {
+            //     alert('Clicked')
+            $("#PlayerOneNameDisplay").html($("#playerOneName").val());
+            $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
+            console.log($("#playerOneName").val());
+            console.log($("#playerTwoName").val());
+        }
+    )
+    // This is a form submission where you can get all the values from the form elements
+    var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    $("form").submit(function (e) {
+        // $("#ID").val()
         $("#PlayerOneNameDisplay").html($("#playerOneName").val());
-        console.log($("#playerOneName").val());
         $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
+
+        // Calling a post REST API to the card values when you click new game
+        $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php")
+            .done(function (data) {
+                // convert POST response to a JAVASCRIPT OBJECT/variable
+                var deck = $.parseJSON(data);
+                // putting all 10 card values from POST into the ARRAY- this is our game memory
+                for (i = 0; i < myCardValues.length; i++) {
+                    myCardValues[i] = deck.Cards[i].value
+                }
+                // we are creating events for each card -- the way you will identify what card you have clicked
+                for (i = 0; i < myCardValues.length; i++) {
+
+                    $("#Card" + i).html(myCardValues[i]);
+                    $("#Card" + i).click(
+                        function (e) {
+                            // alert("You clicked :" + e.id)
+                            // When you click the card, what happen: you will write here
+                            console.log(e);
+                            console.log(e.target.id);
+                            // how you can access one item from DOM / HTML elements
+                            var clickedITEM = e.target.id.toString();
+                            console.log(clickedITEM.substr(4, 1));
+                            var X = clickedITEM.substr(4, 1);
+                            // based on X you can use a if statement to separate each car
+                            console.log("You clicked :" + myCardValues[X])
+                        })
+                }
+            });
+        e.preventDefault()
     });
 });
 
-// This is a form submission where you can get all the values from the form elements
-var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-$("Submit").submit(function (e) {
-    // How we can get form values using a form submit
-    // $("#ID").val()
-    $("#PlayerOneNameDisplay").html($("#PlayerOneName").val());
-    $("#PlayerTwoNameDisplay").html($("#PlayerTwoName").val());
-    // Calling a post REST API to the card values when you click new game
-    $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php")
-        .done(function (data) {
-            // convert POST response to a JAVASCRIPT OBJECT/variable
-            var deck = $.parseJSON(data);
-            console.log(deck);
-            // putting all 10 card values from POST into the ARRAY- this is our game memory
-            for (var i = 0; i < 10; i++) {
-                // console.log(deck.Cards[i].value)
-                myCardValues[i] = deck.Cards[i].value;
-            }
-            // we are creating events for each card -- the way you will identify what card you have clicked
-            for (i = 0; i < 10; i++) {
-                //$("#Card" + i).html(myCardValues[i] + ".svg");
-                $("#Card" + i).click(function (e) {
-                    // alert("You clicked :" + e.id)
-                    // When you click the card, what happen: you will write here
-                    console.log(e);
-                    console.log(e.target.id);
-                    console.log(e.target.id);
-                    // how you can access one item from DOM / HTML elements
-                    var clickedITEM = e.target.id.toString();
-                    console.log(clickedITEM.substr(3, 1));
-                    var X = clickedITEM.substr(3, 1);
-                    // based on X you can use a if statement to separate each car
-                    console.log("You clicked :" + myCardValues[X]);
-                });
-            }
-        });
-    e.preventDefault();
-    //alert('worked')
-    //return "done"
-    console.log(myCardValues);
-});
-
-function selectCard(x) {
-    changeColour(x)
-
+function selectCard(e) {
+    changeColour(e)
 }
 
 function changeColour(x) {
