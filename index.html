@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Web Development Game</title>
+    <meta charset="utf-8" lang="en">
+    <link rel="stylesheet" media="screen and (min-width: 1600px)" href="style/large.css">
+    <link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1599px)" href="style/medium.css">
+    <link rel="stylesheet" media="screen and (max-width: 799px)" href="style/small.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/functionality.js"></script>
+</head>
+
+<body>
+<noscript>
+    <p>Please&nbsp;<a href="http://www.enable-javascript.com/">ENABLE</a>&nbsp;JavaScript to utilise this website.</p>
+</noscript>
+<div class="topArea">
+    <div id="Header">
+        <p>Super "Fun" Game</p>
+    </div>
+    <div id="NewGame">
+        <form class="newGameForm" action="" method="POST">
+            <input id="playerOneName" type="text" name="player1" placeholder="Player 1:"><br>
+            <input id="playerTwoName" type="text" name="player2" placeholder="Player 2:"><br>
+            <!--suppress QuirksModeInspectionTool -->
+            <input type="submit" value="Submit" id="Submit"/>
+        </form>
+    </div>
+    <div id="Score">
+        <div class="scoreBoard">
+            <div id="PlayerOneNameDisplay">
+                Player One Score:
+            </div>
+            <div id="PlayerOneScoreDisplay">
+                42
+            </div>
+            <div id="PlayerTwoNameDisplay">
+                Player Two Score:
+            </div>
+            <div id="PlayerTwoScoreDisplay">
+                64
+            </div>
+        </div>
+    </div>
+    <div id="ValueToReach">
+        <div class="valueBoard">
+            <p id="PlayerMove"></p>
+            <p id="Move"></p>
+        </div>
+    </div>
+    <div id="EndGame">
+        <form class="endGameForm" action="index.html" method="post">
+            <input type="submit" value="End Game">
+        </form>
+    </div>
+</div>
+<div class="centerArea">
+    <div class="cardArea">
+        <div class="card" id="Card0" onclick="selectCard(this)"></div>
+        <div class="card" id="Card1" onclick="selectCard(this)"></div>
+        <div class="card" id="Card2" onclick="selectCard(this)"></div>
+        <div class="card" id="Card3" onclick="selectCard(this)"></div>
+        <div class="card" id="Card4" onclick="selectCard(this)"></div>
+        <div class="card" id="Card5" onclick="selectCard(this)"></div>
+        <div class="card" id="Card6" onclick="selectCard(this)"></div>
+        <div class="card" id="Card7" onclick="selectCard(this)"></div>
+        <div class="card" id="Card8" onclick="selectCard(this)"></div>
+        <div class="card" id="Card9" onclick="selectCard(this)"></div>
+    </div>
+</div>
+<div class="bottomArea">
+    <div class="footer" id="Footer">
+        <p id="copyright" property="dc:rights">&copy;
+            <span property="dc:dateCopyrighted">2017</span>
+            <span property="dc:publisher">Jordan Carr</span>
+        </p>
+    </div>
+</div>
+</body>
