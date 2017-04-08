@@ -14,7 +14,7 @@ $(document).ready(function () {
     )
     // This is a form submission where you can get all the values from the form elements
     var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    $("form").submit(function (e) {
+    $("form.newGameForm").submit(function (e) {
         // $("#ID").val()
         $("#PlayerOneNameDisplay").html($("#playerOneName").val());
         $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
