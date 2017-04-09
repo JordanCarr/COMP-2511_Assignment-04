@@ -101,7 +101,15 @@ noscript a {
 #Header p {
     color: #FAFAFA;
     font-family: "Pacifico", cursive;
+    font-size: 4vw;
+    height: 100%;
     text-align: center;
+}
+
+@media (min-width: 1150px) {
+    #Header p {
+        font-size: 2.75em;
+    }
 }
 
 #NewGame {
