@@ -122,7 +122,6 @@ function setupEndTurn() {
 }
 
 function endTurn() {
-    console.log(selectedCards);
     let sum = sumOfSelectedCards();
     if (sum > valueToBeat) {
         let playerScoreDisplay = $(`#Player${playerTurnValue + 1}ScoreDisplay`);
@@ -140,7 +139,7 @@ function endTurn() {
 }
 
 function resetSelected() {
-    selectedCards.map(x => false);
+    selectedCards.map(card => false);
 }
 
 function setupEndGame() {
