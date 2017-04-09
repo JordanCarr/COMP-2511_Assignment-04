@@ -5,8 +5,8 @@ p {
 }
 
 .scoreBoard {
-    justify-content: flex-start;
     font-size: 0.8em;
+    justify-content: flex-start;
 }
 
 .scoreBoard div:nth-child(2n) {
