@@ -5,14 +5,13 @@ let cardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let selectedCards = [false, false, false, false, false, false, false, false, false, false];
 let valueToBeat = 0;
 let playerTurnValue = 0;
+let playerName = ["", ""];
 
 $(document).ready(function () {
 
     // On player name submission setup game with players, cards, etc...
     $("form.newGameForm").submit(function (e) {
         loadPlayers();
-        loadCards();
-        setupEndTurn();
         setupEndGame();
         e.preventDefault();
     });
@@ -20,24 +19,24 @@ $(document).ready(function () {
 
 // Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
-    $("#PlayerOneNameDisplay").html($("#playerOneName").val());
-    $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
+    playerName[0] = $("#Player1Name").val();
+    playerName[1] = $("#Player2Name").val();
+    $("#Player1NameDisplay").html(playerName[0]);
+    $("#Player2NameDisplay").html(playerName[1]);
 
-    //Game starts with player 1's turn
-    playerTurn(1);
-
-    $("#Move").html(valueToBeat);
+    //Game starts with player 1's turn which has an index of 0
+    setupPlayerTurn(playerTurnValue);
 }
 
-function playerTurn(playerNumber) {
-    const playerMoveElement = $("#PlayerMove");
-    playerMoveElement.html(`Player ${playerNumber}, value to beat: `);
+function setupPlayerTurn(playerNumber) {
+    loadCards(playerNumber);
 }
 
-function loadCards() {
+function loadCards(playerNumber) {
     $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php").done(function (data) {
         // convert POST response to a JAVASCRIPT OBJECT/variable
         const deck = $.parseJSON(data);
+        /** @namespace deck.Cards */
         valueToBeat = deck.Cards[0].value;
         // putting all 10 card values from POST into the ARRAY- this is our game memory
         for (let i = 0; i < cardValues.length; i++) {
@@ -47,11 +46,19 @@ function loadCards() {
         for (let cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             const card = $("#Card" + cardIndex);
             card.html(cardValues[cardIndex]);
+            card.off("click", cardSetup);
+            card.css("background-color", "");
             card.click(cardSetup);
         }
+        playerTurn(playerNumber);
+        $(".cardArea").css("visibility", "visible");
     });
+}
 
-    $(".cardArea").css("visibility", "visible");
+function playerTurn(playerNumber) {
+    setupEndTurn();
+    $("#PlayerMove").html(`Player ${playerNumber + 1}, value to beat: `);
+    $("#Move").html(valueToBeat);
 }
 
 function cardSetup(e) {
@@ -64,15 +71,7 @@ function cardSetup(e) {
 
 function selectCard(cardIndex, card) {
     // Store Card Selected Value
-    switch (selectedCards[cardIndex]) {
-        case true:
-            selectedCards[cardIndex] = false;
-            break;
-        case false:
-            selectedCards[cardIndex] = true;
-            break;
-    }
-
+    selectedCards[cardIndex] = !selectedCards[cardIndex];
     // Change Colour
     switch (card.css("background-color")) {
         // blue = #0288D1, rgb(2, 136, 209)
@@ -86,15 +85,49 @@ function selectCard(cardIndex, card) {
     }
 }
 
-function setupEndTurn() {
-    $("#EndTurnButton").click(function () {
-        if (!selectedCards.find(x => x === true)) {
-            console.log(selectedCards);
-            alert("Please select a card");
-
+function sumOfSelectedCards() {
+    let sum = 0;
+    for (let i = 0; i < selectedCards.length; i++) {
+        if (selectedCards[i] === true) {
+            sum += cardValues[i];
         }
-    })
+    }
+    return sum;
 }
+
+function changeTurn() {
+    playerTurnValue = (playerTurnValue + 1) % 2
+}
+
+function setupEndTurn() {
+    let endTurnButton = $("#EndTurnButton");
+    endTurnButton.off("click", endTurn);
+    endTurnButton.click(endTurn)
+}
+
+function endTurn() {
+    console.log(selectedCards);
+    let sum = sumOfSelectedCards();
+    if (sum > valueToBeat) {
+        let playerScoreDisplay = $("#Player" + playerTurnValue + 1 + "ScoreDisplay");
+        playerScoreDisplay.val += 10;
+        changeTurn();
+        alert(`You are correct, you score 10 points, now it's ${playerName[playerTurnValue]}'s turn`);
+        setupPlayerTurn(playerTurnValue)
+    } else {
+        changeTurn();
+        alert(`You are incorrect, you score 0 points, now it's ${playerName[playerTurnValue]}'s turn`);
+        setupPlayerTurn(playerTurnValue)
+    }
+    resetSelected()
+}
+
+function resetSelected() {
+    for (let i = 0; i < selectedCards.length; i++) {
+        selectedCards[i] = false;
+    }
+}
+
 
 function setupEndGame() {
     $("#EndGameButton").click(function () {
