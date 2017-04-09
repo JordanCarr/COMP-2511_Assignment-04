@@ -8,7 +8,6 @@ let playerTurnValue = 0;
 let playerName = ["", ""];
 
 $(document).ready(function () {
-
     // On player name submission setup game with players, cards, etc...
     $("form.newGameForm").submit(function (e) {
         loadPlayers();
@@ -45,14 +44,18 @@ function loadCards(playerNumber) {
         // we are creating events for each card -- the way you will identify what card you have clicked
         for (let cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             const card = $("#Card" + cardIndex);
-            card.html(cardValues[cardIndex]);
-            card.off("click", cardSetup);
-            card.css("background-color", "");
+            card.html(cardValues[cardIndex]);  //TODO make cards have separate images
+            resetCard(card);
             card.click(cardSetup);
         }
         playerTurn(playerNumber);
         $(".cardArea").css("visibility", "visible");
     });
+}
+
+function resetCard(card) {
+    card.off("click", cardSetup);
+    card.css("background-color", "");
 }
 
 function playerTurn(playerNumber) {
@@ -109,8 +112,9 @@ function endTurn() {
     console.log(selectedCards);
     let sum = sumOfSelectedCards();
     if (sum > valueToBeat) {
-        let playerScoreDisplay = $("#Player" + playerTurnValue + 1 + "ScoreDisplay");
-        playerScoreDisplay.val += 10;
+        let playerScoreDisplay = $(`#Player${playerTurnValue + 1}ScoreDisplay`);
+        let currentScore = playerScoreDisplay.html();
+        playerScoreDisplay.html(parseInt(currentScore) + 10);
         changeTurn();
         alert(`You are correct, you score 10 points, now it's ${playerName[playerTurnValue]}'s turn`);
         setupPlayerTurn(playerTurnValue)
