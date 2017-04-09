@@ -25,14 +25,14 @@ Colour Codes:
 @import url("base.css");
 
 .cardArea div {
-    margin: 0.4em 0.8em;
-    zoom: 1.25;
+    margin: 0.6em 1.2em;
+    zoom: 1.5;
 }
 
 .cardArea p {
-    font-size: 8vh;
+    font-size: 11vh;
 }
 
 #EndGame form input {
-    font-size: 4vh;
+    font-size: 3.25vw;
 }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-
 <head>
     <title>Web Development Game</title>
     <meta charset="utf-8" lang="en">
     <link rel="stylesheet" media="screen and (min-width: 1600px)" href="style/large.css">
-    <link rel="stylesheet" media="screen and (max-width: 1599px)" href="style/medium.css">
+    <link rel="stylesheet" media="screen and (min-width: 1080px) and (max-width: 1599px)" href="style/medium.css">
+    <link rel="stylesheet" media="screen and (max-width: 1079px)" href="style/small.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/functionality.js"></script>
 </head>
@@ -40,8 +40,11 @@
         </div>
     </div>
     <div id="EndGame">
-        <form class="endGameForm" method="post">
-            <input type="submit" value="End Game">
+        <form class="endgameForm">
+            <input type="button" id="EndTurnButton" value="End Turn">
+        </form>
+        <form class="endGameForm">
+            <input type="button" id="EndGameButton" value="End Game">
         </form>
     </div>
 </div>
