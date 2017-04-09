@@ -25,7 +25,7 @@ function loadPlayers() {
     $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
 
     //Game starts with player 1's turn
-    playerTurnValue(1);
+    playerTurn(1);
 
     $("#Move").html(valueToBeat);
 }
