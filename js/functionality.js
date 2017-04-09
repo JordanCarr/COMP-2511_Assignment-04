@@ -20,12 +20,13 @@ function loadPlayers() {
     $("#PlayerOneNameDisplay").html($("#playerOneName").val());
     $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
 
+    var playerMoveElement = $("#PlayerMove");
     switch (playerTurn) {
         case 1:
-            $("#PlayerMove").html("Player 1, value to beat: ");
+            playerMoveElement.html("Player 1, value to beat: ");
             break;
         case 2:
-            $("#PlayerMove").html("Player 2, value to beat: ")
+            playerMoveElement.html("Player 2, value to beat: ")
     }
 
     $("#Move").html(valueToBeat);
