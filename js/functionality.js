@@ -7,14 +7,24 @@ let valueToBeat = 0;
 let playerTurnValue = 0;
 let playerName = ["", ""];
 
-$(document).ready(function () {
+$(document).ready(() => {
     // On player name submission setup game with players, cards, etc...
-    $("form.newGameForm").submit(function (e) {
+    $("form.newGameForm").submit(e => {
         loadPlayers();
         setupEndGame();
         e.preventDefault();
+        setupTopArea();
     });
 });
+
+function setupTopArea() {
+    $("#NewGame").remove();
+    $("#Score").css("width", "33%");
+    $(".scoreBoard div:nth-child(2n)").css("width", "50%");
+    $(".scoreBoard div:not(:nth-child(2n))").css("width", "50%");
+    $("#ValueToReach").css("width", "34%");
+    $("#EndGame").css("width", "33%");
+}
 
 // Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
@@ -32,7 +42,7 @@ function setupPlayerTurn(playerNumber) {
 }
 
 function loadCards(playerNumber) {
-    $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php").done(function (data) {
+    $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php").done(data => {
         // convert POST response to a JAVASCRIPT OBJECT/variable
         const deck = $.parseJSON(data);
         /** @namespace deck.Cards */
@@ -60,7 +70,7 @@ function resetCard(card) {
 
 function playerTurn(playerNumber) {
     setupEndTurn();
-    $("#PlayerMove").html(`Player ${playerNumber + 1}, value to beat: `);
+    $("#PlayerMove").html(`${playerName[playerNumber]}, value to beat: `);
     $("#Move").html(valueToBeat);
 }
 
@@ -85,13 +95,16 @@ function selectCard(cardIndex, card) {
         case "rgb(244, 67, 54)": // red
             card.css("background-color", ""); //un-sets colour
             break;
+        default:
+            alert("Something went horribly wrong with the style sheet. Reloading");
+            window.location.reload();
     }
 }
 
 function sumOfSelectedCards() {
     let sum = 0;
     for (let i = 0; i < selectedCards.length; i++) {
-        if (selectedCards[i] === true) {
+        if (true === selectedCards[i]) {
             sum += cardValues[i];
         }
     }
@@ -127,14 +140,9 @@ function endTurn() {
 }
 
 function resetSelected() {
-    for (let i = 0; i < selectedCards.length; i++) {
-        selectedCards[i] = false;
-    }
+    selectedCards.map(x => false);
 }
 
-
 function setupEndGame() {
-    $("#EndGameButton").click(function () {
-        window.location.reload();
-    });
+    $("#EndGameButton").click(() => window.location.reload());
 }

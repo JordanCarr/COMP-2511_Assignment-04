@@ -15,8 +15,18 @@ $(document).ready(function () {
         loadPlayers();
         setupEndGame();
         e.preventDefault();
+        setupTopArea();
     });
 });
+
+function setupTopArea() {
+    $("#NewGame").remove();
+    $("#Score").css("width", "33%");
+    $(".scoreBoard div:nth-child(2n)").css("width", "50%");
+    $(".scoreBoard div:not(:nth-child(2n))").css("width", "50%");
+    $("#ValueToReach").css("width", "34%");
+    $("#EndGame").css("width", "33%");
+}
 
 // Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
@@ -62,7 +72,7 @@ function resetCard(card) {
 
 function playerTurn(playerNumber) {
     setupEndTurn();
-    $("#PlayerMove").html("Player " + (playerNumber + 1) + ", value to beat: ");
+    $("#PlayerMove").html(playerName[playerNumber] + ", value to beat: ");
     $("#Move").html(valueToBeat);
 }
 
@@ -89,13 +99,16 @@ function selectCard(cardIndex, card) {
             // red
             card.css("background-color", ""); //un-sets colour
             break;
+        default:
+            alert("Something went horribly wrong with the style sheet. Reloading");
+            window.location.reload();
     }
 }
 
 function sumOfSelectedCards() {
     var sum = 0;
     for (var i = 0; i < selectedCards.length; i++) {
-        if (selectedCards[i] === true) {
+        if (true === selectedCards[i]) {
             sum += cardValues[i];
         }
     }
@@ -131,14 +144,14 @@ function endTurn() {
 }
 
 function resetSelected() {
-    for (var i = 0; i < selectedCards.length; i++) {
-        selectedCards[i] = false;
-    }
+    selectedCards.map(function (x) {
+        return false;
+    });
 }
 
 function setupEndGame() {
     $("#EndGameButton").click(function () {
-        window.location.reload();
+        return window.location.reload();
     });
 }
 //# sourceMappingURL=functionality.js.map
