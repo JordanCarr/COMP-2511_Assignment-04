@@ -1,13 +1,16 @@
 /**
  * Created by Jordan Carr on 2017-03-28.
  */
+
+//TODO more better comments
+
 var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var selectedCards = [false, false, false, false, false, false, false, false, false, false];
 var valueToBeat = 0;
-var playerTurn = 1;
+var playerTurnValue = 1;
 
 $(document).ready(function () {
-    // This is a form submission where you can get all the values from the form elements
+    // On player name submission setup game with players, cards, etc...
     $("form.newGameForm").submit(function (e) {
         loadPlayers();
         loadCards();
@@ -16,20 +19,27 @@ $(document).ready(function () {
     });
 });
 
+// Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
     $("#PlayerOneNameDisplay").html($("#playerOneName").val());
     $("#PlayerTwoNameDisplay").html($("#playerTwoName").val());
 
+    //Game starts with player 1's turn
+    playerTurnValue(1);
+
+    $("#Move").html(valueToBeat);
+}
+
+function playerTurn(playerNumber) {
     var playerMoveElement = $("#PlayerMove");
-    switch (playerTurn) {
+    switch (playerNumber) {
         case 1:
             playerMoveElement.html("Player 1, value to beat: ");
             break;
         case 2:
-            playerMoveElement.html("Player 2, value to beat: ")
+            playerMoveElement.html("Player 2, value to beat: ");
+            break;
     }
-
-    $("#Move").html(valueToBeat);
 }
 
 function loadCards() {
