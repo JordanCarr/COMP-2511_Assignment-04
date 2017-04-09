@@ -1,27 +1,27 @@
 /*
 Colour Codes:
-	Name:
-		Intensity - Hex code
+    Name:
+        Intensity - Hex code
 
-	Blue:
-		500 - #2196F3
-    700 - 0288D1
-		900 - #0D47A1
-	Blue Grey:
-		200 - #B0BEC5
-		600 - #546E7A
-	Green:
-		500 - #4CAF50
-	Grey:
-		 50 - #FAFAFA
-		300 - #E0E0E0
-		400 - #BDBDBD
-		500 - #9E9E9E
-		600 - #757575
-		700 - #616161
-		800 - #424242
-	Red:
-		500 - #F44336
+    Blue:
+        500 - #2196F3
+        700 - 0288D1
+        900 - #0D47A1
+    Blue Grey:
+        200 - #B0BEC5
+        600 - #546E7A
+    Green:
+        500 - #4CAF50
+    Grey:
+         50 - #FAFAFA
+        300 - #E0E0E0
+        400 - #BDBDBD
+        500 - #9E9E9E
+        600 - #757575
+        700 - #616161
+        800 - #424242
+    Red:
+        500 - #F44336
 */
 @font-face {
     font-family: 'Ubuntu';
@@ -56,34 +56,27 @@ p, div {
     font-family: "Ubuntu", sans-serif;
 }
 
+noscript p {
+    align-items: center;
+    background-color: hsla(0, 0%, 13%, 0.98);
+    color: #FAFAFA;
+    display: flex;
+    font-family: "Ubuntu", sans-serif;
+    font-size: x-large;
+    height: calc(100vh - 3em);
+    justify-content: center;
+    left: 1.5em;
+    position: fixed;
+    top: 1.5em;
+    width: calc(100vw - 3em);
+    z-index: 20;
+}
+
 noscript {
     height: 100vh;
     position: absolute;
     width: 100vw;
     z-index: 10;
-}
-
-noscript p {
-    align-items: center;
-    background-color: hsla(0, 0%, 13%, 0.98); /*Chrome and non CSS 4 browser compatibility*/
-    background-color: #212121FA; /*CSS 4 hex colour with opacity*/
-
-    color: #FAFAFA;
-    display: flex;
-
-    font-family: "Ubuntu", sans-serif;
-
-    font-size: x-large;
-    height: calc(100vh - 3em);
-    justify-content: center;
-
-    left: 1.5em;
-    position: fixed;
-
-    top: 1.5em;
-
-    width: calc(100vw - 3em);
-    z-index: 20;
 }
 
 noscript a {
@@ -129,7 +122,6 @@ noscript a {
 
 #NewGame form input {
     border-width: 0;
-    -moz-box-sizing: content-box;
     height: 18%;
     margin: auto;
     padding: 0;
@@ -257,10 +249,6 @@ noscript a {
 .card:hover {
     border: 0.1em solid #eeeeee;
     transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    -webkit-transform: scale(1.1);
 }
 
 .card {
