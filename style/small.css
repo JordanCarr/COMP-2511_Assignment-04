@@ -1,32 +1,42 @@
-/*
-Colour Codes:
-*	Name:
-*		Intensity - Hex code
-
-	Blue:
-		500 - 2196F3
-		900 - 0D47A1
-	Blue Grey:
-		200 - B0BEC5
-		600 - 546E7A
-	Green:
-		500 - 4CAF50
-	Grey:
-		 50 - FAFAFA
-		300 - E0E0E0
-		400 - BDBDBD
-		500 - 9E9E9E
-		600 - 757575
-		700 - 616161
-		800 - 424242
-	Red:
-		500 - F44336
-*/
 @import url("base.css");
 
+p {
+    -webkit-margin-before: 0.2em;
+}
+
+.scoreBoard {
+    justify-content: flex-start;
+    font-size: 0.8em;
+}
+
+.scoreBoard div:nth-child(2n) {
+    text-align: center;
+    width: 20%;
+}
+
+.scoreBoard div:not(:nth-child(2n)) {
+    text-align: right;
+    width: 80%;
+}
+
+.topArea {
+    height: 15%;
+}
+
+.valueBoard p {
+    font-size: 0.75em;
+    height: 18%;
+    margin: 0;
+    padding: 0;
+}
+
+.centerArea {
+    height: 82%;
+}
+
 .cardArea div {
-    margin: 0.4em 0.8em;
-    zoom: 1.25;
+    margin: 0.1em 0.2em;
+    zoom: 1;
 }
 
 .cardArea p {
@@ -35,4 +45,11 @@ Colour Codes:
 
 #EndGame form input {
     font-size: 3vw;
+}
+
+@media (max-width: 600px) {
+    .cardArea div {
+        margin: 0.1em 0.2em;
+        zoom: 0.8;
+    }
 }

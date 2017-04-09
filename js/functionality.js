@@ -1,13 +1,10 @@
 /**
  * Created by Jordan Carr on 2017-03-28.
  */
-
-//TODO more better comments
-
-var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var selectedCards = [false, false, false, false, false, false, false, false, false, false];
-var valueToBeat = 0;
-var playerTurnValue = 1;
+let myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let selectedCards = [false, false, false, false, false, false, false, false, false, false];
+let valueToBeat = 0;
+let playerTurnValue = 1;
 
 $(document).ready(function () {
     // On player name submission setup game with players, cards, etc...
@@ -31,41 +28,36 @@ function loadPlayers() {
 }
 
 function playerTurn(playerNumber) {
-    var playerMoveElement = $("#PlayerMove");
-    switch (playerNumber) {
-        case 1:
-            playerMoveElement.html("Player 1, value to beat: ");
-            break;
-        case 2:
-            playerMoveElement.html("Player 2, value to beat: ");
-            break;
-    }
+    const playerMoveElement = $("#PlayerMove");
+    playerMoveElement.html(`Player ${playerNumber}, value to beat: `);
 }
 
 function loadCards() {
     $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php").done(function (data) {
         // convert POST response to a JAVASCRIPT OBJECT/variable
-        var deck = $.parseJSON(data);
+        const deck = $.parseJSON(data);
         valueToBeat = deck.Cards[0].value;
         // putting all 10 card values from POST into the ARRAY- this is our game memory
-        for (var i = 0; i < myCardValues.length; i++) {
+        for (let i = 0; i < myCardValues.length; i++) {
             myCardValues[i] = deck.Cards[i + 1].value;
         }
         // we are creating events for each card -- the way you will identify what card you have clicked
-        for (var cardIndex = 0; cardIndex < myCardValues.length; cardIndex++) {
-            var card = $("#Card" + cardIndex);
+        for (let cardIndex = 0; cardIndex < myCardValues.length; cardIndex++) {
+            const card = $("#Card" + cardIndex);
             card.html(myCardValues[cardIndex]);
-            card.click(function (e) {
-                var cardIndex = e.target.id.substr(4, 1);
-                var card = $(e.target);
-                selectCard(cardIndex, card);
-                console.log("You clicked card: " + cardIndex);
-                console.log("This card has a value of: " + myCardValues[cardIndex])
-            });
+            card.click(cardSetup);
         }
     });
 
     $(".cardArea").css("visibility", "visible");
+}
+
+function cardSetup(e) {
+    const cardIndex = e.target.id.substr(4, 1);
+    const card = $(e.target);
+    selectCard(cardIndex, card);
+    console.log("You clicked card: " + cardIndex);
+    console.log("This card has a value of: " + myCardValues[cardIndex])
 }
 
 function selectCard(cardIndex, card) {
