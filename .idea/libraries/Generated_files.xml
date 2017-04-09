@@ -3,12 +3,13 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/dist/js/functionality.js" />
-        <item url="file://$PROJECT_DIR$/dist/js/functionality.js" />
+        <item url="file://$PROJECT_DIR$/dist/dev/js/functionality.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/dist/dev/js/functionality.js" />
       <root url="file://$PROJECT_DIR$/dist/js/functionality.js" />
-      <root url="file://$PROJECT_DIR$/dist/js/functionality.js" />
+      <root url="file://$PROJECT_DIR$/dist/dev/js/functionality.js" />
     </CLASSES>
     <SOURCES />
   </library>

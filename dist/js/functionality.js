@@ -3,7 +3,7 @@
 /**
  * Created by Jordan Carr on 2017-03-28.
  */
-var myCardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var cardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var selectedCards = [false, false, false, false, false, false, false, false, false, false];
 var valueToBeat = 0;
 var playerTurnValue = 0;
@@ -14,6 +14,7 @@ $(document).ready(function () {
     $("form.newGameForm").submit(function (e) {
         loadPlayers();
         loadCards();
+        setupEndTurn();
         setupEndGame();
         e.preventDefault();
     });
@@ -41,13 +42,13 @@ function loadCards() {
         var deck = $.parseJSON(data);
         valueToBeat = deck.Cards[0].value;
         // putting all 10 card values from POST into the ARRAY- this is our game memory
-        for (var i = 0; i < myCardValues.length; i++) {
-            myCardValues[i] = deck.Cards[i + 1].value;
+        for (var i = 0; i < cardValues.length; i++) {
+            cardValues[i] = deck.Cards[i + 1].value;
         }
         // we are creating events for each card -- the way you will identify what card you have clicked
-        for (var cardIndex = 0; cardIndex < myCardValues.length; cardIndex++) {
+        for (var cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             var card = $("#Card" + cardIndex);
-            card.html(myCardValues[cardIndex]);
+            card.html(cardValues[cardIndex]);
             card.click(cardSetup);
         }
     });
@@ -60,7 +61,7 @@ function cardSetup(e) {
     var card = $(e.target);
     selectCard(cardIndex, card);
     console.log("You clicked card: " + cardIndex);
-    console.log("This card has a value of: " + myCardValues[cardIndex]);
+    console.log("This card has a value of: " + cardValues[cardIndex]);
 }
 
 function selectCard(cardIndex, card) {
@@ -87,6 +88,17 @@ function selectCard(cardIndex, card) {
             card.css("background-color", ""); //un-sets colour
             break;
     }
+}
+
+function setupEndTurn() {
+    $("#EndTurnButton").click(function () {
+        if (!selectedCards.find(function (x) {
+                return x === true;
+            })) {
+            console.log(selectedCards);
+            alert("Please select a card");
+        }
+    });
 }
 
 function setupEndGame() {
