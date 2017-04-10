@@ -119,26 +119,24 @@ function changeTurn() {
 
 function setupEndTurn() {
     let endTurnButton = $("#EndTurnButton");
-    endTurnButton.off("click", endTurn);
-    endTurnButton.click(endTurn)
-}
-
-function endTurn() {
-    let sum = sumOfSelectedCards();
-    if (sum > valueToBeat) {
-        let playerScoreDisplay = $(`#Player${playerTurnValue + 1}ScoreDisplay`);
-        let currentScore = playerScoreDisplay.html();
-        playerScoreDisplay.html(parseInt(currentScore) + 10);
-        changeTurn();
-        alert(`You are correct, you score 10 points, now it's ${playerName[playerTurnValue]}'s turn`);
-        setupPlayerTurn(playerTurnValue)
-    } else {
-        changeTurn();
-        alert(`You are incorrect, you score 0 points, now it's ${playerName[playerTurnValue]}'s turn`);
-        setupPlayerTurn(playerTurnValue)
-    }
-    resetSelected();
-    setupGame()
+    endTurnButton.off("click");
+    endTurnButton.click(() => {
+        let sum = sumOfSelectedCards();
+        if (sum > valueToBeat) {
+            let playerScoreDisplay = $(`#Player${playerTurnValue + 1}ScoreDisplay`);
+            let currentScore = playerScoreDisplay.html();
+            playerScoreDisplay.html(parseInt(currentScore) + 10);
+            changeTurn();
+            alert(`You are correct, you score 10 points, now it's ${playerName[playerTurnValue]}'s turn`);
+            setupPlayerTurn(playerTurnValue)
+        } else {
+            changeTurn();
+            alert(`You are incorrect, you score 0 points, now it's ${playerName[playerTurnValue]}'s turn`);
+            setupPlayerTurn(playerTurnValue)
+        }
+        resetSelected();
+        setupGame()
+    })
 }
 
 function resetSelected() {
@@ -146,11 +144,10 @@ function resetSelected() {
 }
 
 function setupEndGame() {
-    $("#EndGameButton").click(() => {
-        let playerScores = [
-            parseInt($("#Player1ScoreDisplay").html()),
-            parseInt($("#Player2ScoreDisplay").html())
-        ];
+    let endGameButton = $("#EndGameButton");
+    endGameButton.off("click");
+    endGameButton.click(() => {
+        let playerScores = [parseInt($("#Player1ScoreDisplay").html()), parseInt($("#Player2ScoreDisplay").html())];
 
         if (playerScores[0] > playerScores[1]) {
             alert(`${playerName[0]} Wins`);

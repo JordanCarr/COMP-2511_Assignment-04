@@ -129,26 +129,24 @@ function changeTurn() {
 
 function setupEndTurn() {
     var endTurnButton = $("#EndTurnButton");
-    endTurnButton.off("click", endTurn);
-    endTurnButton.click(endTurn);
-}
-
-function endTurn() {
-    var sum = sumOfSelectedCards();
-    if (sum > valueToBeat) {
-        var playerScoreDisplay = $("#Player" + (playerTurnValue + 1) + "ScoreDisplay");
-        var currentScore = playerScoreDisplay.html();
-        playerScoreDisplay.html(parseInt(currentScore) + 10);
-        changeTurn();
-        alert("You are correct, you score 10 points, now it's " + playerName[playerTurnValue] + "'s turn");
-        setupPlayerTurn(playerTurnValue);
-    } else {
-        changeTurn();
-        alert("You are incorrect, you score 0 points, now it's " + playerName[playerTurnValue] + "'s turn");
-        setupPlayerTurn(playerTurnValue);
-    }
-    resetSelected();
-    setupGame();
+    endTurnButton.off("click");
+    endTurnButton.click(function () {
+        var sum = sumOfSelectedCards();
+        if (sum > valueToBeat) {
+            var playerScoreDisplay = $("#Player" + (playerTurnValue + 1) + "ScoreDisplay");
+            var currentScore = playerScoreDisplay.html();
+            playerScoreDisplay.html(parseInt(currentScore) + 10);
+            changeTurn();
+            alert("You are correct, you score 10 points, now it's " + playerName[playerTurnValue] + "'s turn");
+            setupPlayerTurn(playerTurnValue);
+        } else {
+            changeTurn();
+            alert("You are incorrect, you score 0 points, now it's " + playerName[playerTurnValue] + "'s turn");
+            setupPlayerTurn(playerTurnValue);
+        }
+        resetSelected();
+        setupGame();
+    });
 }
 
 function resetSelected() {
@@ -158,7 +156,9 @@ function resetSelected() {
 }
 
 function setupEndGame() {
-    $("#EndGameButton").click(function () {
+    var endGameButton = $("#EndGameButton");
+    endGameButton.off("click");
+    endGameButton.click(function () {
         var playerScores = [parseInt($("#Player1ScoreDisplay").html()), parseInt($("#Player2ScoreDisplay").html())];
 
         if (playerScores[0] > playerScores[1]) {
