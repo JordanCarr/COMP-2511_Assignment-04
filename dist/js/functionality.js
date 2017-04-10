@@ -48,6 +48,7 @@ function setupPlayerTurn(playerNumber) {
 }
 
 function loadCards(playerNumber) {
+    //noinspection FunctionWithMultipleLoopsJS
     $.post("http://ins.mtroyal.ca/~nkhemka/test/process.php").done(function (data) {
         // convert POST response to a JAVASCRIPT OBJECT/variable
         var deck = $.parseJSON(data);
@@ -90,6 +91,7 @@ function cardSetup(e) {
     console.log("You clicked card: " + cardIndex);
     console.log("This card has a value of: " + cardValues[cardIndex]);
 }
+
 function selectCard(cardIndex, card) {
     // Store Card Selected Value
     selectedCards[cardIndex] = !selectedCards[cardIndex];
@@ -110,6 +112,7 @@ function selectCard(cardIndex, card) {
             window.location.reload();
     }
 }
+
 function sumOfSelectedCards() {
     var sum = 0;
     for (var i = 0; i < selectedCards.length; i++) {
@@ -119,15 +122,18 @@ function sumOfSelectedCards() {
     }
     return sum;
 }
+
 function changeTurn() {
     playerTurnValue = (playerTurnValue + 1) % 2;
 }
+
 function setupEndTurn() {
     var endTurnButton = $("#EndTurnButton");
     endTurnButton.off("click");
     endTurnButton.click(function () {
         if (sumOfSelectedCards() > valueToBeat) {
-            var playerScoreDisplay = $("#Player" + (playerTurnValue + 1) + "ScoreDisplay");
+            var playerSelector = "#Player" + (playerTurnValue + 1) + "ScoreDisplay";
+            var playerScoreDisplay = $(playerSelector);
             var currentScore = playerScoreDisplay.html();
             playerScoreDisplay.html(parseInt(currentScore) + 10);
             changeTurn();
@@ -142,6 +148,7 @@ function setupEndTurn() {
         setupGame();
     });
 }
+
 function setupEndGame() {
     var endGameButton = $("#EndGameButton");
     endGameButton.click(function () {
