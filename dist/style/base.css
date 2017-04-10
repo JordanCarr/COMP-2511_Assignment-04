@@ -263,22 +263,27 @@ noscript a {
     background-image: url("../images/Card.svg");
 }
 
+/*noinspection CssUnusedSymbol*/
 .card0 {
     background-image: url("../images/0.svg");
 }
 
+/*noinspection CssUnusedSymbol*/
 .card1 {
     background-image: url("../images/1.svg");
 }
 
+/*noinspection CssUnusedSymbol*/
 .card2 {
     background-image: url("../images/2.svg");
 }
 
+/*noinspection CssUnusedSymbol*/
 .card3 {
     background-image: url("../images/3.svg");
 }
 
+/*noinspection CssUnusedSymbol*/
 .card4 {
     background-image: url("../images/4.svg");
 }

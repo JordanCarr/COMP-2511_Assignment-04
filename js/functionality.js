@@ -13,12 +13,12 @@ function initialiseGame(e) {
     e.preventDefault();
     loadPlayers();
     setupGame();
+    setupEndGame()
 }
 
 function setupGame() {
     setupPlayerTurn(playerTurnValue);
-    setupTopArea();
-    setupEndGame();
+    setupTopArea()
 }
 
 function setupTopArea() {
@@ -27,19 +27,18 @@ function setupTopArea() {
     $(".scoreBoard div:nth-child(2n)").css("width", "50%");
     $(".scoreBoard div:not(:nth-child(2n))").css("width", "50%");
     $("#ValueToReach").css("width", "34%");
-    $("#EndGame").css("width", "33%");
+    $("#EndGame").css("width", "33%")
 }
 
-// Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
     playerName[0] = $("#Player1Name").val();
     playerName[1] = $("#Player2Name").val();
     $("#Player1NameDisplay").html(playerName[0]);
-    $("#Player2NameDisplay").html(playerName[1]);
+    $("#Player2NameDisplay").html(playerName[1])
 }
 
 function setupPlayerTurn(playerNumber) {
-    loadCards(playerNumber);
+    loadCards(playerNumber)
 }
 
 function loadCards(playerNumber) {
@@ -50,30 +49,30 @@ function loadCards(playerNumber) {
         valueToBeat = deck.Cards[0].value;
         // putting all 10 card values from POST into the ARRAY- this is our game memory
         for (let i = 0; i < cardValues.length; i++) {
-            cardValues[i] = deck.Cards[i + 1].value;
+            cardValues[i] = deck.Cards[i + 1].value
         }
         // we are creating events for each card -- the way you will identify what card you have clicked
         for (let cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             const card = $("#Card" + cardIndex);
             resetCard(card);
             card.addClass(`card${cardValues[cardIndex]}`);
-            card.click(cardSetup);
+            card.click(cardSetup)
         }
         playerTurn(playerNumber);
-        $(".cardArea").css("visibility", "visible");
+        $(".cardArea").css("visibility", "visible")
     });
 }
 
 function resetCard(card) {
     card.off("click", cardSetup);
     card.css("background-color", "");
-    [0, 1, 2, 3, 4].map(i => card.removeClass('card' + i));
+    [0, 1, 2, 3, 4].map(i => card.removeClass('card' + i))
 }
 
 function playerTurn(playerNumber) {
     setupEndTurn();
     $("#PlayerMove").html(`${playerName[playerNumber]}, value to beat: `);
-    $("#Move").html(valueToBeat);
+    $("#Move").html(valueToBeat)
 }
 
 function cardSetup(e) {
@@ -83,7 +82,6 @@ function cardSetup(e) {
     console.log("You clicked card: " + cardIndex);
     console.log("This card has a value of: " + cardValues[cardIndex])
 }
-
 function selectCard(cardIndex, card) {
     // Store Card Selected Value
     selectedCards[cardIndex] = !selectedCards[cardIndex];
@@ -99,30 +97,26 @@ function selectCard(cardIndex, card) {
             break;
         default:
             alert("Something went horribly wrong with the style sheet. Reloading");
-            window.location.reload();
+            window.location.reload()
     }
 }
-
 function sumOfSelectedCards() {
     let sum = 0;
     for (let i = 0; i < selectedCards.length; i++) {
         if (true === selectedCards[i]) {
-            sum += cardValues[i];
+            sum += cardValues[i]
         }
     }
-    return sum;
+    return sum
 }
-
 function changeTurn() {
     playerTurnValue = (playerTurnValue + 1) % 2
 }
-
 function setupEndTurn() {
     let endTurnButton = $("#EndTurnButton");
     endTurnButton.off("click");
     endTurnButton.click(() => {
-        let sum = sumOfSelectedCards();
-        if (sum > valueToBeat) {
+        if (sumOfSelectedCards() > valueToBeat) {
             let playerScoreDisplay = $(`#Player${playerTurnValue + 1}ScoreDisplay`);
             let currentScore = playerScoreDisplay.html();
             playerScoreDisplay.html(parseInt(currentScore) + 10);
@@ -134,29 +128,21 @@ function setupEndTurn() {
             alert(`You are incorrect, you score 0 points, now it's ${playerName[playerTurnValue]}'s turn`);
             setupPlayerTurn(playerTurnValue)
         }
-        resetSelected();
+        selectedCards.fill(false);
         setupGame()
     })
 }
-
-function resetSelected() {
-    selectedCards.map(card => false);
-}
-
 function setupEndGame() {
     let endGameButton = $("#EndGameButton");
-    endGameButton.off("click");
     endGameButton.click(() => {
         let playerScores = [parseInt($("#Player1ScoreDisplay").html()), parseInt($("#Player2ScoreDisplay").html())];
-
         if (playerScores[0] > playerScores[1]) {
-            alert(`${playerName[0]} Wins`);
+            alert(`${playerName[0]} Wins`)
         } else if (playerScores[1] > playerScores[0]) {
-            alert(`${playerName[1]} Wins`);
+            alert(`${playerName[1]} Wins`)
         } else {
-            alert(`${playerName[0]} and ${playerName[1]} tied`);
+            alert(`${playerName[0]} and ${playerName[1]} tied`)
         }
-
         window.location.reload()
     });
 }

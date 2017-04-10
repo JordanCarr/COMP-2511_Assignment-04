@@ -19,12 +19,12 @@ function initialiseGame(e) {
     e.preventDefault();
     loadPlayers();
     setupGame();
+    setupEndGame();
 }
 
 function setupGame() {
     setupPlayerTurn(playerTurnValue);
     setupTopArea();
-    setupEndGame();
 }
 
 function setupTopArea() {
@@ -36,7 +36,6 @@ function setupTopArea() {
     $("#EndGame").css("width", "33%");
 }
 
-// Set player display to show input names and initialise player 1's turn
 function loadPlayers() {
     playerName[0] = $("#Player1Name").val();
     playerName[1] = $("#Player2Name").val();
@@ -91,7 +90,6 @@ function cardSetup(e) {
     console.log("You clicked card: " + cardIndex);
     console.log("This card has a value of: " + cardValues[cardIndex]);
 }
-
 function selectCard(cardIndex, card) {
     // Store Card Selected Value
     selectedCards[cardIndex] = !selectedCards[cardIndex];
@@ -112,7 +110,6 @@ function selectCard(cardIndex, card) {
             window.location.reload();
     }
 }
-
 function sumOfSelectedCards() {
     var sum = 0;
     for (var i = 0; i < selectedCards.length; i++) {
@@ -122,17 +119,14 @@ function sumOfSelectedCards() {
     }
     return sum;
 }
-
 function changeTurn() {
     playerTurnValue = (playerTurnValue + 1) % 2;
 }
-
 function setupEndTurn() {
     var endTurnButton = $("#EndTurnButton");
     endTurnButton.off("click");
     endTurnButton.click(function () {
-        var sum = sumOfSelectedCards();
-        if (sum > valueToBeat) {
+        if (sumOfSelectedCards() > valueToBeat) {
             var playerScoreDisplay = $("#Player" + (playerTurnValue + 1) + "ScoreDisplay");
             var currentScore = playerScoreDisplay.html();
             playerScoreDisplay.html(parseInt(currentScore) + 10);
@@ -144,23 +138,14 @@ function setupEndTurn() {
             alert("You are incorrect, you score 0 points, now it's " + playerName[playerTurnValue] + "'s turn");
             setupPlayerTurn(playerTurnValue);
         }
-        resetSelected();
+        selectedCards.fill(false);
         setupGame();
     });
 }
-
-function resetSelected() {
-    selectedCards.map(function (card) {
-        return false;
-    });
-}
-
 function setupEndGame() {
     var endGameButton = $("#EndGameButton");
-    endGameButton.off("click");
     endGameButton.click(function () {
         var playerScores = [parseInt($("#Player1ScoreDisplay").html()), parseInt($("#Player2ScoreDisplay").html())];
-
         if (playerScores[0] > playerScores[1]) {
             alert(playerName[0] + " Wins");
         } else if (playerScores[1] > playerScores[0]) {
@@ -168,7 +153,6 @@ function setupEndGame() {
         } else {
             alert(playerName[0] + " and " + playerName[1] + " tied");
         }
-
         window.location.reload();
     });
 }
