@@ -10,14 +10,22 @@ var playerTurnValue = 0;
 var playerName = ["", ""];
 
 $(document).ready(function () {
-    // On player name submission setup game with players, cards, etc...
-    $("form.newGameForm").submit(function (e) {
-        loadPlayers();
-        setupEndGame();
-        e.preventDefault();
-        setupTopArea();
+    return $("form.newGameForm").submit(function (e) {
+        return initialiseGame(e);
     });
 });
+
+function initialiseGame(e) {
+    e.preventDefault();
+    loadPlayers();
+    setupGame();
+}
+
+function setupGame() {
+    setupPlayerTurn(playerTurnValue);
+    setupTopArea();
+    setupEndGame();
+}
 
 function setupTopArea() {
     $("#NewGame").remove();
@@ -34,9 +42,6 @@ function loadPlayers() {
     playerName[1] = $("#Player2Name").val();
     $("#Player1NameDisplay").html(playerName[0]);
     $("#Player2NameDisplay").html(playerName[1]);
-
-    //Game starts with player 1's turn which has an index of 0
-    setupPlayerTurn(playerTurnValue);
 }
 
 function setupPlayerTurn(playerNumber) {
@@ -56,8 +61,8 @@ function loadCards(playerNumber) {
         // we are creating events for each card -- the way you will identify what card you have clicked
         for (var cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             var card = $("#Card" + cardIndex);
-            card.html(cardValues[cardIndex]); //TODO make cards have separate images
             resetCard(card);
+            card.addClass("card" + cardValues[cardIndex]);
             card.click(cardSetup);
         }
         playerTurn(playerNumber);
@@ -68,6 +73,9 @@ function loadCards(playerNumber) {
 function resetCard(card) {
     card.off("click", cardSetup);
     card.css("background-color", "");
+    [0, 1, 2, 3, 4].map(function (i) {
+        return card.removeClass('card' + i);
+    });
 }
 
 function playerTurn(playerNumber) {
@@ -140,6 +148,7 @@ function endTurn() {
         setupPlayerTurn(playerTurnValue);
     }
     resetSelected();
+    setupGame();
 }
 
 function resetSelected() {
@@ -150,7 +159,17 @@ function resetSelected() {
 
 function setupEndGame() {
     $("#EndGameButton").click(function () {
-        return window.location.reload();
+        var playerScores = [parseInt($("#Player1ScoreDisplay").html()), parseInt($("#Player2ScoreDisplay").html())];
+
+        if (playerScores[0] > playerScores[1]) {
+            alert(playerName[0] + " Wins");
+        } else if (playerScores[1] > playerScores[0]) {
+            alert(playerName[1] + " Wins");
+        } else {
+            alert(playerName[0] + " and " + playerName[1] + " tied");
+        }
+
+        window.location.reload();
     });
 }
 //# sourceMappingURL=functionality.js.map

@@ -5,17 +5,21 @@ let cardValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let selectedCards = [false, false, false, false, false, false, false, false, false, false];
 let valueToBeat = 0;
 let playerTurnValue = 0;
-let playerName = ["", ""];
+const playerName = ["", ""];
 
-$(document).ready(() => {
-    // On player name submission setup game with players, cards, etc...
-    $("form.newGameForm").submit(e => {
-        loadPlayers();
-        setupEndGame();
-        e.preventDefault();
-        setupTopArea();
-    });
-});
+$(document).ready(() => $("form.newGameForm").submit(e => initialiseGame(e)));
+
+function initialiseGame(e) {
+    e.preventDefault();
+    loadPlayers();
+    setupGame();
+}
+
+function setupGame() {
+    setupPlayerTurn(playerTurnValue);
+    setupTopArea();
+    setupEndGame();
+}
 
 function setupTopArea() {
     $("#NewGame").remove();
@@ -32,9 +36,6 @@ function loadPlayers() {
     playerName[1] = $("#Player2Name").val();
     $("#Player1NameDisplay").html(playerName[0]);
     $("#Player2NameDisplay").html(playerName[1]);
-
-    //Game starts with player 1's turn which has an index of 0
-    setupPlayerTurn(playerTurnValue);
 }
 
 function setupPlayerTurn(playerNumber) {
@@ -54,8 +55,8 @@ function loadCards(playerNumber) {
         // we are creating events for each card -- the way you will identify what card you have clicked
         for (let cardIndex = 0; cardIndex < cardValues.length; cardIndex++) {
             const card = $("#Card" + cardIndex);
-            card.html(cardValues[cardIndex]);  //TODO make cards have separate images
             resetCard(card);
+            card.addClass(`card${cardValues[cardIndex]}`);
             card.click(cardSetup);
         }
         playerTurn(playerNumber);
@@ -66,6 +67,7 @@ function loadCards(playerNumber) {
 function resetCard(card) {
     card.off("click", cardSetup);
     card.css("background-color", "");
+    [0, 1, 2, 3, 4].map(i => card.removeClass('card' + i));
 }
 
 function playerTurn(playerNumber) {
@@ -135,7 +137,8 @@ function endTurn() {
         alert(`You are incorrect, you score 0 points, now it's ${playerName[playerTurnValue]}'s turn`);
         setupPlayerTurn(playerTurnValue)
     }
-    resetSelected()
+    resetSelected();
+    setupGame()
 }
 
 function resetSelected() {
@@ -143,5 +146,20 @@ function resetSelected() {
 }
 
 function setupEndGame() {
-    $("#EndGameButton").click(() => window.location.reload());
+    $("#EndGameButton").click(() => {
+        let playerScores = [
+            parseInt($("#Player1ScoreDisplay").html()),
+            parseInt($("#Player2ScoreDisplay").html())
+        ];
+
+        if (playerScores[0] > playerScores[1]) {
+            alert(`${playerName[0]} Wins`);
+        } else if (playerScores[1] > playerScores[0]) {
+            alert(`${playerName[1]} Wins`);
+        } else {
+            alert(`${playerName[0]} and ${playerName[1]} tied`);
+        }
+
+        window.location.reload()
+    });
 }
