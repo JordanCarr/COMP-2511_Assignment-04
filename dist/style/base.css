@@ -260,7 +260,27 @@ noscript a {
 }
 
 .card {
-    background-image: url("../images/CardBackGround.svg");
+    background-image: url("../images/Card.svg");
+}
+
+.card0 {
+    background-image: url("../images/0.svg");
+}
+
+.card1 {
+    background-image: url("../images/1.svg");
+}
+
+.card2 {
+    background-image: url("../images/2.svg");
+}
+
+.card3 {
+    background-image: url("../images/3.svg");
+}
+
+.card4 {
+    background-image: url("../images/4.svg");
 }
 
 .bottomArea {
